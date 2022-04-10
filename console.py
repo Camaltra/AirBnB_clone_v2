@@ -199,14 +199,14 @@ class HBNBCommand(cmd.Cmd):
         instanceListStr = []
         if not line:
             for instance in models.storage.all().values():
-                instanceListStr.append(instance.__str__())
+                instanceListStr.append(str(instance))
         else:
             if line not in self.classes:
                 print("** class doesn't exist **")
                 return False
             for instance in models.storage.all().values():
                 if instance.__class__.__name__ == line:
-                    instanceListStr.append(instance.__str__())
+                    instanceListStr.append(str(instance))
         print(instanceListStr)
 
     def update_in_dict(self, classname, line):
