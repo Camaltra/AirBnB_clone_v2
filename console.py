@@ -84,7 +84,41 @@ class HBNBCommand(cmd.Cmd):
                 count += 1
         print(count)
 
-    def do_create(self, className):
+    def convertDataInDict(self, args):
+        """
+        Convert given data from create to dict **kwarg
+        If value is a string (between ""), then save it as string
+        If value is a float (meanning got a . in the num), then try to save it as it
+        If value is a int (default case), then try it to save it as it
+        Else don't do nothing
+        Args:
+            self (Class)
+            args (list): List composed of <key>=<value>
+        Return: The new created dict
+        """
+        dataDict = {}
+        for arg in args:
+            if "=" in arg:
+                data = arg.split("=", 1)
+                key = data[0]
+                value = data[1]
+                if value[0] == value[-1] == '"':
+                    value.replace("_", " ")
+                    value = shlex.split(value)[0]
+                elif "." in value:
+                    try:
+                        value = float(value)
+                    except:
+                        continue
+                else:
+                    try:
+                        value = int(value)
+                    except:
+                        continue
+                dataDict[key] = value
+        return dataDict
+
+    def do_create(self, arg):
         """
         Create a new instance of the given class
         Usage: create <NameClass>
@@ -92,16 +126,14 @@ class HBNBCommand(cmd.Cmd):
             If the name class do not exist
             If the name class isn't given
         """
-        if not className:
+        args = arg.split()
+        if len(args) == 0:
             print("** class name missing **")
             return False
-        data = shlex.split(className)
-        try:
-            newClass = eval(data[0])()
-            print(newClass.id)
-            newClass.save()
-        except NameError:
-            print("** class doesn't exist **")
+        dataDict = self.convertDataInDict(args[1:])
+        newClass = eval(args[0])(**dataDict)
+        print(newClass.id)
+        newClass.save()
 
     def do_show(self, line):
         """
