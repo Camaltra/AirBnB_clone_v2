@@ -88,7 +88,8 @@ class HBNBCommand(cmd.Cmd):
         """
         Convert given data from create to dict **kwarg
         If value is a string (between ""), then save it as string
-        If value is a float (meanning got a . in the num), then try to save it as it
+        If value is a float (meanning got a . in the num), then try to 
+            save it as it
         If value is a int (default case), then try it to save it as it
         Else don't do nothing
         Args:
