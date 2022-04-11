@@ -16,13 +16,13 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 import models
-
+import sys
 
 class HBNBCommand(cmd.Cmd):
     """
     The console class
     """
-    prompt = '(hbnb) '
+    prompt = '(hbnb) ' if sys.__stdin__.isatty() else ''
     classes = {"BaseModel", "User", "State",
                "City", "Amenity", "Place", "Review"}
 
