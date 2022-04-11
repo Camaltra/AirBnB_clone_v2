@@ -13,6 +13,7 @@ class State(BaseModel, Base):
         cities = relationship("City", backref="state", cascade="all, delete")
     else:
         name = ""
+
         @property
         def cities(self):
             """
@@ -22,4 +23,3 @@ class State(BaseModel, Base):
                 if city.state_id == self.id:
                     listCity.append(city)
             return listCity
-                
