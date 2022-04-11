@@ -32,3 +32,14 @@ class Place(BaseModel, Base):
         latitude = 0.0
         longitude = 0.0
         amenity_ids = []
+        @property
+        def reviews(self):
+            """
+            Getter that returns the list of Review instances
+            with place_id equals to the current Place.id
+            """
+            listReview = []
+            for review in models.storage.all(Review).value():
+                if review.place_id == self.id:
+                    listReview.append(review)
+            return listReview
