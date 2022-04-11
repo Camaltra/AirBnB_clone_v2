@@ -104,7 +104,7 @@ class HBNBCommand(cmd.Cmd):
                 key = data[0]
                 value = data[1]
                 if value[0] == value[-1] == '"':
-                    value.replace("_", " ")
+                    value = value.replace("_", " ")
                     value = shlex.split(value)[0]
                 elif "." in value:
                     try:

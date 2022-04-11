@@ -6,6 +6,9 @@ from os import getenv
 from models.base_model import Base
 from models.city import City
 from models.state import State
+from models.review import Review
+from models.place import Place
+from models.user import User
 
 
 class DBStorage:
@@ -33,7 +36,7 @@ class DBStorage:
             cls (Instance of the class)
         """
         clsDict = {}
-        typeOfObjects = {"City": City, "State": State}
+        typeOfObjects = {"City": City, "State": State, "User": User, "Place": Place, "Review": Review}
         if cls:
             for instance in self.__session.query(typeOfObjects[cls]).all():
                 key = instance.__class__.__name__ + "." + instance.id
