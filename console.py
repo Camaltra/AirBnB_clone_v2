@@ -23,7 +23,7 @@ class HBNBCommand(cmd.Cmd):
     """
     The console class
     """
-    prompt = '(hbnb) ' if sys.__stdin__.isatty() else ''
+    prompt = '(hbnb) '
     classes = {"BaseModel", "User", "State",
                "City", "Amenity", "Place", "Review"}
 
