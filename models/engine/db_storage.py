@@ -1,5 +1,5 @@
 #!/usr/bin/python3.8
-
+"""module for database storage engine"""
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 from sqlalchemy.orm import scoped_session
@@ -15,6 +15,7 @@ from models.amenity import Amenity
 
 
 class DBStorage:
+    """This class defines the DBStorage"""
     __engine = None
     __session = None
 
