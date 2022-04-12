@@ -37,7 +37,8 @@ class Place(BaseModel, Base):
                                cascade="all, delete")
         amenities = relationship(
             "Amenity",
-            secondary='place_amenity',
+            secondary=place_amenity,
+            backref="place_amenities",
             viewonly=False)
     else:
         city_id = ""
@@ -85,5 +86,5 @@ class Place(BaseModel, Base):
                 obj (Instance of class) : The amenity instance
             Return: Nothing
             """
-            if (type(obj).__name__ == "Amenity"):
+            if type(obj) == Amenity:
                 self.amenities_ids.append(obj.id)
