@@ -5,11 +5,17 @@ from sqlalchemy import Table, Column, String, Integer, Float, ForeignKey
 from sqlalchemy.orm import relationship
 from models.review import Review
 from models.amenity import Amenity
+import models
 
 if storageType == "db":
     place_amenity = Table('place_amenity', Base.metadata,
-            Column("place_id", String(60), ForeignKey("places.id"), primary_key=True, nullable=False),
-            Column("amenity_id", String(60), ForeignKey("amenities.id"), primary_key=True, nullable=False))
+                          Column("place_id", String(60),
+                                 ForeignKey("places.id"),
+                                 primary_key=True, nullable=False),
+                          Column("amenity_id", String(60),
+                                 ForeignKey("amenities.id"),
+                                 primary_key=True, nullable=False))
+
 
 class Place(BaseModel, Base):
     """ A place to stay """
@@ -25,8 +31,13 @@ class Place(BaseModel, Base):
         price_by_night = Column(Integer, nullable=False, default=0)
         latitude = Column(Float, nullable=True)
         longitude = Column(Float, nullable=True)
-        reviews = relationship("Review", backref="place", cascade="all, delete")
-        amenities = relationship("Amenity", secondary=place_amenity, backref="place_amenities", viewonly=False)
+        reviews = relationship("Review", backref="place",
+                               cascade="all, delete")
+        amenities = relationship(
+            "Amenity",
+            secondary=place_amenity,
+            backref="place_amenities",
+            viewonly=False)
     else:
         city_id = ""
         user_id = ""
@@ -59,8 +70,8 @@ class Place(BaseModel, Base):
             amenity_ids that contains all amenity.id linked to the Place
             """
             listAmenities = []
-            for amenities in models.storage.all(Amenities).value():
-                if amenities.id in self.amenities_ids:
+            for amenities in models.storage.all(Amenity).values():
+                if amenities.id in self.amenity_ids:
                     listAmenities.append(amenities)
             return listAmenities
 
@@ -73,5 +84,5 @@ class Place(BaseModel, Base):
                 obj (Instance of class) : The amenity instance
             Return: Nothing
             """
-            if type(obj) == Amenities:
+            if type(obj) == Amenity:
                 self.amenities_ids.append(obj.id)

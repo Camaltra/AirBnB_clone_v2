@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
 from sqlalchemy.orm import scoped_session
@@ -17,16 +19,21 @@ class DBStorage:
     __session = None
 
     def __init__(self):
-        """Creates the engine for the database"""
+        """
+        Creates the engine for the database
+        thanks to all tmp env variable
+        """
         user = getenv("HBNB_MYSQL_USER")
         passwd = getenv("HBNB_MYSQL_PWD")
         host = getenv("HBNB_MYSQL_HOST")
         database = getenv("HBNB_MYSQL_DB")
         env = getenv("HBNB_ENV")
-    
-        self.__engine = create_engine("mysql+mysqldb://{}:{}@{}/{}".format(user, passwd, host, database), pool_pre_ping=True)
+
+        self.__engine = create_engine(
+            "mysql+mysqldb://{}:{}@{}/{}".format(user, passwd, host, database),
+            pool_pre_ping=True)
         if env == "test":
-            Base.metadata.drop_all(self.__engine) 
+            Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         """
@@ -37,7 +44,8 @@ class DBStorage:
             cls (Instance of the class)
         """
         clsDict = {}
-        typeOfObjects = {"City": City, "State": State, "User": User, "Place": Place, "Review": Review, "Amenity": Amenity}
+        typeOfObjects = {"City": City, "State": State, "User": User,
+                         "Place": Place, "Review": Review, "Amenity": Amenity}
         if cls:
             for instance in self.__session.query(typeOfObjects[cls]).all():
                 key = instance.__class__.__name__ + "." + instance.id
@@ -52,18 +60,17 @@ class DBStorage:
                     if "_sa_instance_state" in instance.__dict__:
                         del instance.__dict__["_sa_instance_state"]
         return clsDict
-            
+
     def new(self, obj):
         """
         Add a new element into the database session
         Args:
             self (class instance)
-            obj (BaseModel instance or child) : New obj to 
+            obj (BaseModel instance or child) : New obj to
                     add into the database
         Return: Nothing
         """
         self.__session.add(obj)
-        
 
     def save(self):
         """
@@ -79,7 +86,7 @@ class DBStorage:
         Delete an element from the database session
         Args:
             self (class instance)
-            obj (BaseModel instance or child) : obj to 
+            obj (BaseModel instance or child) : obj to
                     delete from the database
         Return: Nothing
         """
@@ -87,10 +94,13 @@ class DBStorage:
             self.__session.delete(obj)
 
     def reload(self):
-        """Create all tables in the database and the session
+        """
+        Create all tables in the database and the session
+        Args:
+            self (class instance)
         """
         Base.metadata.create_all(self.__engine)
-        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
+        session_factory = sessionmaker(
+            bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(session_factory)
         self.__session = Session
-        

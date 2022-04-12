@@ -19,6 +19,10 @@ class State(BaseModel, Base):
         @property
         def cities(self):
             """
+            Getter for all linked cities of a
+            state
+            Args:
+                self (class instance)
             """
             listCity = []
             for city in models.storage.all(City).value():

@@ -7,7 +7,9 @@ from models.place import Place
 
 
 class User(BaseModel, Base):
-    """This class defines a user by various attributes"""
+    """
+    This class defines a user by various attributes
+    """
     if storageType == "db":
         __tablename__ = "users"
         email = Column(String(128), nullable=False)
