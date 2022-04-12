@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python3.8
 """ Review module for the HBNB project """
 from models.base_model import BaseModel, Base, storageType
 from sqlalchemy import Column, String, ForeignKey

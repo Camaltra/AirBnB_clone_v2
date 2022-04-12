@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python3.8
 """This module defines a base class for all models in our hbnb clone"""
 import uuid
 import models
