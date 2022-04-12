@@ -6,7 +6,9 @@ import datetime
 from uuid import UUID
 import json
 import os
-import MySQLdb
+from os import getenv
+
+storageType = getenv("HBNB_TYPE_STORAGE")
 
 
 class test_basemodel(unittest.TestCase):
@@ -48,6 +50,7 @@ class test_basemodel(unittest.TestCase):
         with self.assertRaises(TypeError):
             new = BaseModel(**copy)
 
+    @unittest.skipIf(storageType == "db", "Not for alchemy")
     def test_save(self):
         """ Testing save """
         i = self.value()
@@ -61,7 +64,7 @@ class test_basemodel(unittest.TestCase):
         """ """
         i = self.value()
         self.assertEqual(str(i), '[{}] ({}) {}'.format(self.name, i.id,
-                         i.__dict__))
+                                                       i.__dict__))
 
     def test_todict(self):
         """ """
