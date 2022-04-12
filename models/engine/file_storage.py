@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python3.8
 """This module defines a class to manage file storage for hbnb clone"""
 import json
 import models

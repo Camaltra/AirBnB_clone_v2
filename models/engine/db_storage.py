@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python3.8
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
