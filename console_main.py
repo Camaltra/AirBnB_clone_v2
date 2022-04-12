@@ -7,7 +7,7 @@ from models.user import User
 from models.place import Place
 from models.review import Review
 from models.amenity import Amenity
-from models.__init__ import storage
+import models
 
 # creation of a State
 state = State(name="California")
@@ -44,6 +44,6 @@ place_2.amenities.append(amenity_1)
 place_2.amenities.append(amenity_2)
 place_2.amenities.append(amenity_3)
 print(place_2.amenities)
-storage.save()
+models.storage.save()
 
 print("OK")
