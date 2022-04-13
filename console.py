@@ -190,30 +190,25 @@ class HBNBCommand(cmd.Cmd):
         del models.storage.all()[classNameId]
         models.storage.save()
 
-    def do_all(self, args):
+    def do_all(self, line):
         """
         Display all instance of a class
         Usage: all <className>
         Exceptions:
             If the class do not exist
         """
-        print_list = []
-
-        if args:
-            args = args.split(' ')[0]  # remove possible trailing args
-            if args not in HBNBCommand.classes:
-                print("** class doesn't exist **")
-                return
-            for k, v in models.storage.all().items():
-                if k.split('.')[0] == args:
-                    delattr(v, '_sa_instance_state')
-                    print_list.append(str(v))
+        instanceListStr = []
+        if not line:
+            for instance in models.storage.all().values():
+                instanceListStr.append(str(instance))
         else:
-            for k, v in models.storage.all().items():
-                delattr(v, '_sa_instance_state')
-                print_list.append(str(v))
-
-        print(print_list)
+            if line not in self.classes:
+                print("** class doesn't exist **")
+                return False
+            for instance in models.storage.all().values():
+                if instance.__class__.__name__ == line:
+                    instanceListStr.append(str(instance))
+        print(instanceListStr)
 
     def update_in_dict(self, classname, line):
         """

@@ -51,11 +51,15 @@ class DBStorage:
             for instance in self.__session.query(typeOfObjects[cls]).all():
                 key = instance.__class__.__name__ + "." + instance.id
                 clsDict[key] = instance
+                if "_sa_instance_state" in instance.__dict__:
+                    del instance.__dict__["_sa_instance_state"]
         else:
             for obj in typeOfObjects.values():
                 for instance in self.__session.query(obj).all():
                     key = instance.__class__.__name__ + '.' + instance.id
                     clsDict[key] = instance
+                    if "_sa_instance_state" in instance.__dict__:
+                        del instance.__dict__["_sa_instance_state"]
         return clsDict
 
     def new(self, obj):
