@@ -8,8 +8,7 @@ import models
 
 
 class State(BaseModel, Base):
-    """State class"""
-
+    """ State class """
     if storageType == "db":
         __tablename__ = "states"
         name = Column(String(128), nullable=False)

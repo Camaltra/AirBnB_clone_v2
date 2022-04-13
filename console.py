@@ -23,9 +23,9 @@ class HBNBCommand(cmd.Cmd):
     """
     The console class
     """
-
-    prompt = "(hbnb) "
-    classes = {"BaseModel", "User", "State", "City", "Amenity", "Place", "Review"}
+    prompt = '(hbnb) '
+    classes = {"BaseModel", "User", "State",
+               "City", "Amenity", "Place", "Review"}
 
     def default(self, line):
         """
@@ -38,13 +38,12 @@ class HBNBCommand(cmd.Cmd):
         Exceptions:
             If the syntaxe is not know
         """
-        functionDict = {
-            "all": self.do_all,
-            "show": self.do_show,
-            "destroy": self.do_destroy,
-            "count": self.do_count,
-            "update": self.do_update,
-        }
+        functionDict = {"all": self.do_all,
+                        "show": self.do_show,
+                        "destroy": self.do_destroy,
+                        "count": self.do_count,
+                        "update": self.do_update
+                        }
         patern = r"(.*)\.(.*)\((.*)\)"
         if re.search(patern, line):
             args = re.sub(patern, r"\2 \1 \3", line)
@@ -53,7 +52,7 @@ class HBNBCommand(cmd.Cmd):
                 if args[0] == "update" and "{" in line and "}" in line:
                     self.update_in_dict(args[1], line)
                 else:
-                    functionDict[args[0]](" ".join(args[1:]))
+                    functionDict[args[0]](' '.join(args[1:]))
         else:
             print(f"*** Unknown syntax: {line}")
 
@@ -217,12 +216,14 @@ class HBNBCommand(cmd.Cmd):
         for the command update and call the function do_update with all key
         """
         dictRepr = re.findall("({.*})", line)
-        dictRepr[0] = dictRepr[0].replace("'", '"')
+        dictRepr[0] = dictRepr[0].replace('\'', "\"")
         args = json.loads(dictRepr[0])
-        line_catch = re.findall('(".*?")', line)
-        id_line = line_catch[0].replace('"', "")
+        line_catch = re.findall("(\".*?\")", line)
+        id_line = line_catch[0].replace("\"", "")
         for key, val in args.items():
-            self.do_update(classname + " " + id_line + " " + key + " " + str(val))
+            self.do_update(
+                classname + " " + id_line + " " + key + " " + str(val)
+            )
 
     def is_float(self, num):
         """
@@ -269,7 +270,8 @@ class HBNBCommand(cmd.Cmd):
             print("** value missing **")
             return False
         currentInstance = models.storage.all()[strLine]
-        if data[2] == "id" or data[2] == "created_at" or data[2] == "updated_at":
+        if data[2] == "id" or data[2] == "created_at" or\
+                data[2] == "updated_at":
             return False
         if data[3].isnumeric():
             data[3] = int(data[3])
@@ -282,60 +284,54 @@ class HBNBCommand(cmd.Cmd):
         """
         Help section of EOF
         """
-        print(
-            "Manage the EOF, exit the console and\
-save all the created instance\n"
-        )
+        print('Manage the EOF, exit the console and\
+save all the created instance\n')
 
     def help_quit(self):
         """
         Help section of quit
         """
         print(
-            "Quit function\n\
+            'Quit function\n\
 Usage quit\n\
-Exit the console and save all the created instance\n"
-        )
+Exit the console and save all the created instance\n')
 
     def help_create(self):
         """
         Help section of create
         """
         print(
-            "Create function\n\
+            'Create function\n\
 Usage create <ClassName>\n\
-Create a new instance of the given class, print its id\n"
-        )
+Create a new instance of the given class, print its id\n')
 
     def help_show(self):
         """
         Help section of show
         """
         print(
-            "Show a instance by using the Nameclass and its ID\n\
+            'Show a instance by using the Nameclass and its ID\n\
 Usage: show <ClassName> <Id>\n\
-Show the __str__ representation of the class\n"
-        )
+Show the __str__ representation of the class\n')
 
     def help_destroy(self):
         """
         Help section of destroy
         """
         print(
-            "Destroy a instance by using the Nameclass and its ID\n\
+            'Destroy a instance by using the Nameclass and its ID\n\
 Usage: destroy <ClassName> <Id>\n\
-Destroy the instance, and save it into the Json file\n"
+Destroy the instance, and save it into the Json file\n'
         )
 
     def help_all(self):
         """
         Help section of all
         """
-        print(
-            "Display all instance of a class\n\
+        print("Display all instance of a class\n\
 Usage: all <className>\n\
         "
-        )
+              )
 
     def help_update(self):
         """
@@ -350,11 +346,9 @@ Usage: update <class name> <id> <attribute name> "<attribute value>"\n'
         """
         Help section of count
         """
-        print(
-            "Count the number of given ClassName instance\n\
-Usage : count <class name>"
-        )
+        print('Count the number of given ClassName instance\n\
+Usage : count <class name>')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     HBNBCommand().cmdloop()
