@@ -37,9 +37,8 @@ class Place(BaseModel, Base):
                                cascade="all, delete")
         amenities = relationship(
             "Amenity",
-            secondary=place_amenity,
-            backref="place_amenities",
-            viewonly=False)
+            secondary="place_amenity",
+            viewonly=False, overlaps="place_amenities")
     else:
         city_id = ""
         user_id = ""
