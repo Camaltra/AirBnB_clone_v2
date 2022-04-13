@@ -110,7 +110,7 @@ class TestBasicCaseAndDoc(unittest.TestCase):
         """
         Check the case of empty line
         """
-        with patch('sys.stdout', new=StringIO()) as f:
+        with patch("sys.stdout", new=StringIO()) as f:
             HBNBCommand().onecmd("")
             self.assertEqual("", f.getvalue().strip())
 
@@ -118,6 +118,6 @@ class TestBasicCaseAndDoc(unittest.TestCase):
         """
         Test an unknow command
         """
-        with patch('sys.stdout', new=StringIO()) as f:
+        with patch("sys.stdout", new=StringIO()) as f:
             HBNBCommand().onecmd("fdfdf")
             self.assertEqual("*** Unknown syntax: fdfdf", f.getvalue().strip())

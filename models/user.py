@@ -10,6 +10,7 @@ class User(BaseModel, Base):
     """
     This class defines a user by various attributes
     """
+
     if storageType == "db":
         __tablename__ = "users"
         email = Column(String(128), nullable=False)
@@ -19,7 +20,7 @@ class User(BaseModel, Base):
         places = relationship("Place", backref="user", cascade="all, delete")
         reviews = relationship("Review", backref="user", cascade="all, delete")
     else:
-        email = ''
-        password = ''
-        first_name = ''
-        last_name = ''
+        email = ""
+        password = ""
+        first_name = ""
+        last_name = ""

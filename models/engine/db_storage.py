@@ -16,6 +16,7 @@ from models.amenity import Amenity
 
 class DBStorage:
     """This class defines the DBStorage"""
+
     __engine = None
     __session = None
 
@@ -32,7 +33,8 @@ class DBStorage:
 
         self.__engine = create_engine(
             "mysql+mysqldb://{}:{}@{}/{}".format(user, passwd, host, database),
-            pool_pre_ping=True)
+            pool_pre_ping=True,
+        )
         if env == "test":
             Base.metadata.drop_all(self.__engine)
 
@@ -45,8 +47,14 @@ class DBStorage:
             cls (Instance of the class)
         """
         clsDict = {}
-        typeOfObjects = {"City": City, "State": State, "User": User,
-                         "Place": Place, "Review": Review, "Amenity": Amenity}
+        typeOfObjects = {
+            "City": City,
+            "State": State,
+            "User": User,
+            "Place": Place,
+            "Review": Review,
+            "Amenity": Amenity,
+        }
         if cls:
             for instance in self.__session.query(typeOfObjects[cls]).all():
                 key = instance.__class__.__name__ + "." + instance.id
@@ -56,7 +64,7 @@ class DBStorage:
         else:
             for obj in typeOfObjects.values():
                 for instance in self.__session.query(obj).all():
-                    key = instance.__class__.__name__ + '.' + instance.id
+                    key = instance.__class__.__name__ + "." + instance.id
                     clsDict[key] = instance
                     if "_sa_instance_state" in instance.__dict__:
                         del instance.__dict__["_sa_instance_state"]
@@ -101,7 +109,6 @@ class DBStorage:
             self (class instance)
         """
         Base.metadata.create_all(self.__engine)
-        session_factory = sessionmaker(
-            bind=self.__engine, expire_on_commit=False)
+        session_factory = sessionmaker(bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(session_factory)
         self.__session = Session
