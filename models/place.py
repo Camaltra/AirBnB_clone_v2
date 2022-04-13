@@ -10,10 +10,14 @@ import models
 if storageType == "db":
     place_amenity = Table('place_amenity', Base.metadata,
                           Column("place_id", String(60),
-                                 ForeignKey("places.id"),
+                                 ForeignKey(
+                                     "places.id", onupdate="CASCADE",
+                                     ondelete="CASCADE"),
                                  primary_key=True, nullable=False),
                           Column("amenity_id", String(60),
-                                 ForeignKey("amenities.id"),
+                                 ForeignKey(
+                                     "amenities.id", onupdate="CASCADE",
+                                     ondelete="CASCADE"),
                                  primary_key=True, nullable=False))
 
 
@@ -36,7 +40,8 @@ class Place(BaseModel, Base):
         reviews = relationship("Review", backref="place",
                                cascade="all, delete")
         amenities = relationship("Amenity", secondary="place_amenity",
-                                 viewonly=False, back_populates="place_amenities")
+                                 viewonly=False,
+                                 back_populates="place_amenities")
     else:
         city_id = ""
         user_id = ""
