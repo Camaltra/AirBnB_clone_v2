@@ -71,7 +71,7 @@ class Place(BaseModel, Base):
         @property
         def reviews(self):
             listReview = []
-            for k in storage.__object:
+            for k in models.storage.__object:
                 if (k["__class__"] == "Review") and k["place_id"] == self.id:
                     listReview.append(k)
             return listReview
