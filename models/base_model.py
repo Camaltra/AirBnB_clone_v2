@@ -19,7 +19,8 @@ else:
 class BaseModel:
     """A base class for all hbnb models"""
     if storageType == "db":
-        id = Column(String(60), nullable=False, primary_key=True)
+        id = Column(String(60), nullable=False,
+                    primary_key=True, default=uuid.uuid4())
         created_at = Column(DateTime, default=datetime.utcnow)
         updated_at = Column(DateTime, default=datetime.utcnow)
 
