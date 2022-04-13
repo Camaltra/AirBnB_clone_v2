@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
 from os import getenv
-from models import storage
+import models
 from models.base_model import Base, BaseModel
 from sqlalchemy import Column, String, Integer, Float, ForeignKey, Table
 from sqlalchemy.orm import relationship
@@ -85,6 +85,6 @@ class Place(BaseModel, Base):
         def amenities(self):
             """ set amenities """
             self.amenity_ids = []
-            for k in storage.__object:
+            for k in models.storage.__object:
                 if (k["__class__"] == "Amenity") and k["amenity_id"] == self.id:
                     self.amenity_ids.append(k.id)
