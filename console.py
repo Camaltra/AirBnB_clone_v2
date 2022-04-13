@@ -200,6 +200,8 @@ class HBNBCommand(cmd.Cmd):
         instanceListStr = []
         if not line:
             for instance in models.storage.all().values():
+                if hasattr(instance, "_sa_instance_state"):
+                    delattr(instance, "_sa_instance_state")
                 instanceListStr.append(str(instance))
         else:
             if line not in self.classes:
@@ -207,6 +209,8 @@ class HBNBCommand(cmd.Cmd):
                 return False
             for instance in models.storage.all().values():
                 if instance.__class__.__name__ == line:
+                    if hasattr(instance, "_sa_instance_state"):
+                        delattr(instance, "_sa_instance_state")
                     instanceListStr.append(str(instance))
         print(instanceListStr)
 
