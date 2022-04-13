@@ -76,6 +76,6 @@ class Place(BaseModel, Base):
         def amenities(self):
             """ set amenities """
             self.amenity_ids = []
-            for k in storage.__object:
+            for k in models.storage.__object:
                 if (k["__class__"] == "Amenity") and k["amenity_id"] == self.id:
                     self.amenity_ids.append(k.id)
