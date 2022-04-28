@@ -33,7 +33,7 @@ def do_clean(number=0):
                 break
             files.pop()
         for fileName in files:
-            local(f'rm -rf ./{fileName}')
+            local('rm -rf ./{}'.format(fileName))
 
     with cd('/data/web_static/releases'):
         files = run('ls -lt').split()
@@ -45,4 +45,4 @@ def do_clean(number=0):
             nameFiles.pop()
         print(nameFiles)
         for fileName in nameFiles:
-            run(f'rm -rf ./{fileName}')
+            run('rm -rf ./{}'.format(fileName))
