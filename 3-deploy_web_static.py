@@ -18,8 +18,8 @@ def do_pack():
     date = time.strftime("%Y%m%d%H%M%S")
     try:
         local('mkdir -p versions')
-        local(f'tar -czvf versions/web_static_{date}.tgz web_static')
-        return f'versions/web_static_{date}.tgz'
+        local('tar -czvf versions/web_static_{}.tgz web_static'.format(date))
+        return 'versions/web_static_{}.tgz'.format(date)
     except Exception:
         return None
 
@@ -38,14 +38,16 @@ def do_deploy(archive_path):
         path = '/data/web_static/releases'
         print(nameFile)
 
-        put(archive_path, f'/tmp/{fileAndExent}')
-        run(f'rm -rf {path}/{nameFile}')
-        run(f'mkdir -p {path}/{nameFile}')
-        run(f'tar -xzf /tmp/{fileAndExent} -C {path}/{nameFile}/')
-        run(f'mv {path}/{nameFile}/web_static/* {path}/{nameFile}')
-        run(f'rm /tmp/{fileAndExent}')
+        put(archive_path, '/tmp/{}'.format(fileAndExent))
+        run('rm -rf {}/{}'.format(path, nameFile))
+        run('mkdir -p {}/{}'.format(path, nameFile))
+        run('tar -xzf /tmp/{} -C {}/{}/'.format(fileAndExent, path, nameFile))
+        run('mv {}/{}/web_static/* {}/{}'.format(
+                                path, nameFile,
+                                path, nameFile))
+        run('rm /tmp/{}'.format(fileAndExent))
         run('rm /data/web_static/current')
-        run(f'ln -sf {path}/{nameFile} /data/web_static/current')
+        run('ln -sf {}/{} /data/web_static/current'.format(path, nameFile))
 
     except Exception:
         return False
