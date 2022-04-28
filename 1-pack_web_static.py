@@ -8,6 +8,7 @@ my AirBnB static clone
 from fabric.api import local
 import time
 
+
 def do_pack():
     """
     Enpack all the static content of AirBnB clone
