@@ -48,7 +48,9 @@ class DBStorage:
         typeOfObjects = {"City": City, "State": State, "User": User,
                          "Place": Place, "Review": Review, "Amenity": Amenity}
         if cls:
-            for instance in self.__session.query(typeOfObjects[cls]).all():
+            if type(cls) is str:
+                cls = eval(cls)
+            for instance in self.__session.query(cls).all():
                 key = instance.__class__.__name__ + "." + instance.id
                 clsDict[key] = instance
         else:
@@ -101,3 +103,6 @@ class DBStorage:
             bind=self.__engine, expire_on_commit=False)
         Session = scoped_session(session_factory)
         self.__session = Session
+
+    def close(self):
+        self.__session.remove()

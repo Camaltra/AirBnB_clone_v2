@@ -63,3 +63,7 @@ class FileStorage:
             if key in FileStorage.__objects:
                 del FileStorage.__objects[key]
                 models.storage.save()
+
+    def close(self):
+        """Realod the data"""
+        self.reload()
