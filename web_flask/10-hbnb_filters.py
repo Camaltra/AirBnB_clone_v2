@@ -17,13 +17,14 @@ def teardown_db(exception):
     """
     storage.close()
 
-@app.route('/states_list', strict_slashes=False)
+@app.route('/hbnb_filters', strict_slashes=False)
 def statesList():
     """
-    list all states
+    list all states an amenities
     """
     states = sorted(list(storage.all("State").values()), key=lambda x: x.name)
-    return render_template('7-states_list.html', states=states)
+    amenities = sorted(list(storage.all("Amenity").values()), key=lambda x: x.name)
+    return render_template('10-hbnb_filters.html', states=states, amenities= amenities)
 
 
 if __name__ == '__main__':
