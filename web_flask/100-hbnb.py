@@ -17,6 +17,7 @@ def teardown_db(exception):
     """
     storage.close()
 
+
 @app.route('/hbnb', strict_slashes=False)
 def statesList():
     """

@@ -15,12 +15,14 @@ def index():
     """
     return 'Hello HBNB!'
 
+
 @app.route('/hbnb', strict_slashes=False)
 def hbnb():
     """
     Display HBNB to the according route
     """
     return 'HBNB'
+
 
 @app.route('/c/<text>', strict_slashes=False)
 def cIsFun(text):
@@ -29,6 +31,7 @@ def cIsFun(text):
     """
     return 'C ' + text.replace('_', ' ')
 
+
 @app.route('/python', strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
 def python(text='is cool'):
@@ -36,6 +39,7 @@ def python(text='is cool'):
     Display python with the parameter, that got a default value
     """
     return 'python ' + text.replace('_', ' ')
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')

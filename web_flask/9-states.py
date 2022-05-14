@@ -17,6 +17,7 @@ def teardown_db(exception):
     """
     storage.close()
 
+
 @app.route('/states', strict_slashes=False)
 def statesList():
     """
@@ -24,6 +25,7 @@ def statesList():
     """
     states = sorted(list(storage.all("State").values()), key=lambda x: x.name)
     return render_template('9-states.html', states=states, choice=True)
+
 
 @app.route('/states/<id>', strict_slashes=False)
 def statesCityList(id):
