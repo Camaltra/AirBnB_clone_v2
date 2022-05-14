@@ -9,36 +9,28 @@ app = Flask(__name__)
 
 
 @app.route('/', strict_slashes=False)
-def index():
-    """
-    Display Hello HBNB to the root
-    """
+def hello():
+    """Return value"""
     return 'Hello HBNB!'
 
 
 @app.route('/hbnb', strict_slashes=False)
-def hbnb():
-    """
-    Display HBNB to the according route
-    """
+def hello_HBNB():
+    """Return value"""
     return 'HBNB'
 
 
 @app.route('/c/<text>', strict_slashes=False)
-def cIsFun(text):
-    """
-    Display c with the parameter
-    """
-    return 'C ' + text.replace('_', ' ')
+def hello_C(text):
+    """Return value"""
+    return 'C {}'.format(text.replace('_', ' '))
 
 
 @app.route('/python', strict_slashes=False)
 @app.route('/python/<text>', strict_slashes=False)
-def python(text='is cool'):
-    """
-    Display python with the parameter, that got a default value
-    """
-    return 'python ' + text.replace('_', ' ')
+def hello_Python(text="is cool"):
+    """Return value"""
+    return 'Python {}'.format(text.replace('_', ' '))
 
 
 if __name__ == '__main__':
