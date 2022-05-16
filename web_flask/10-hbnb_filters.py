@@ -24,8 +24,8 @@ def statesList():
     list all states an amenities
     """
     states = sorted(list(storage.all("State").values()), key=lambda x: x.name)
-    amenities = sorted(list(storage.all("Amenity").values()), key=lambda x: x.name)
-    return render_template('10-hbnb_filters.html', states=states, amenities= amenities)
+    am = sorted(list(storage.all("Amenity").values()), key=lambda x: x.name)
+    return render_template('10-hbnb_filters.html', states=states, amenities=am)
 
 
 if __name__ == '__main__':
