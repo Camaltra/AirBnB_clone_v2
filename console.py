@@ -54,7 +54,7 @@ class HBNBCommand(cmd.Cmd):
                 else:
                     functionDict[args[0]](' '.join(args[1:]))
         else:
-            print(f"*** Unknown syntax: {line}")
+            print("*** Unknown syntax: {}".format(line))
 
     def emptyline(self):
         """
