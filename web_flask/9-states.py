@@ -30,13 +30,14 @@ def statesList():
 @app.route('/states/<id>', strict_slashes=False)
 def statesCityList(id):
     """
-    list all states an cities 
+    list all states an cities
     """
     states = sorted(list(storage.all("State").values()), key=lambda x: x.name)
     for state in states:
         if state.id == id:
             return render_template('9-states.html', states=state, choice=False)
     return render_template('9-states.html', states=False, choice=False)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')
