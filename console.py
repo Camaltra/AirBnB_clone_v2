@@ -157,7 +157,7 @@ class HBNBCommand(cmd.Cmd):
         if len(data) == 1:
             print("** instance id missing **")
             return False
-        classNameId = f"{data[0]}.{data[1]}"
+        classNameId = "{}.{}".format(data[0], data[1])
         if classNameId not in models.storage.all():
             print("** no instance found **")
             return False
@@ -183,7 +183,7 @@ class HBNBCommand(cmd.Cmd):
         if len(data) == 1:
             print("** instance id missing **")
             return False
-        classNameId = f"{data[0]}.{data[1]}"
+        classNameId = "{}.{}".format(data[0], data[1])
         if classNameId not in models.storage.all():
             print("** no instance found **")
             return False
@@ -263,7 +263,7 @@ class HBNBCommand(cmd.Cmd):
         if len(data) == 1:
             print("** instance id missing **")
             return False
-        strLine = f"{data[0]}.{data[1]}"
+        strLine = "{}.{}".format(data[0], data[1])
         if strLine not in models.storage.all():
             print("** no instance found **")
             return False
